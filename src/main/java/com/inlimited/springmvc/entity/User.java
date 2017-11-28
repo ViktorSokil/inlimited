@@ -1,20 +1,24 @@
 package com.inlimited.springmvc.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Viktor on 23.11.2017.
- */
+
 @Entity
 @Table(name = "users")
 public class User {
-    private int userId;
+    @Id
+    @Column(name = "USER_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long userId;
+    @Column(name = "USER_NAME", nullable = false, length = 20)
     private String userName;
+    @Column(name = "USER_EMAIL", nullable = false, length = 20)
     private String userEmail;
-    private List<Receipt> receipts;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Receipt> receipts = new ArrayList<>();
 
-    @OneToMany
     public List<Receipt> getReceipts() {
         return receipts;
     }
@@ -23,18 +27,15 @@ public class User {
         this.receipts = receipts;
     }
 
-    @Id
-    @Column(name = "USER_ID", nullable = false)
-    public int getUserId() {
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(name = "USER_NAME", nullable = false, length = 20)
     public String getUserName() {
         return userName;
     }
@@ -43,8 +44,6 @@ public class User {
         this.userName = userName;
     }
 
-    @Basic
-    @Column(name = "USER_EMAIL", nullable = false, length = 20)
     public String getUserEmail() {
         return userEmail;
     }
@@ -58,20 +57,20 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User users = (User) o;
+        User user = (User) o;
 
-        if (userId != users.userId) return false;
-        if (userName != null ? !userName.equals(users.userName) : users.userName != null) return false;
-        if (userEmail != null ? !userEmail.equals(users.userEmail) : users.userEmail != null) return false;
-
-        return true;
+        if (!userId.equals(user.userId)) return false;
+        if (!userName.equals(user.userName)) return false;
+        if (!userEmail.equals(user.userEmail)) return false;
+        return receipts != null ? receipts.equals(user.receipts) : user.receipts == null;
     }
 
     @Override
     public int hashCode() {
-        int result = userId;
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (userEmail != null ? userEmail.hashCode() : 0);
+        int result = userId.hashCode();
+        result = 31 * result + userName.hashCode();
+        result = 31 * result + userEmail.hashCode();
+        result = 31 * result + (receipts != null ? receipts.hashCode() : 0);
         return result;
     }
 }

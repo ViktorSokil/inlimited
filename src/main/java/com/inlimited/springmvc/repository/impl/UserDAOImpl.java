@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
@@ -26,12 +27,12 @@ public class UserDAOImpl implements IUserDAO{
     }
 
     @Override
-    public void saveUser(User user) {
-        currentSession().saveOrUpdate(user);
+    public User saveUser(User user) {
+        return (User) currentSession().merge(user);
     }
 
     @Override
-    public User findUserById(int user_id) {
+    public User findUserById(Long user_id) {
         return  currentSession().find(User.class, user_id);
     }
 
@@ -47,15 +48,24 @@ public class UserDAOImpl implements IUserDAO{
 
     @Override
     public void updateUser(User user) {
-
+        currentSession().update(user);
     }
 
     @Override
-    public void deleteUser(Integer userId) {
+    public void deleteUser(Long userId) {
+        /*Query query = currentSession().createQuery("delete from Product where productId = "+productId);
+        query.executeUpdate();*/
 
+        CriteriaDelete<User> delete = getCriteriaBuilder().createCriteriaDelete(User.class);
+        Root<User> root=delete.from(User.class);
+        delete.where(root.get("userId"));
     }
 
     private Session currentSession() {
         return sessionFactory.getCurrentSession();
+    }
+
+    private CriteriaBuilder getCriteriaBuilder(){
+        return currentSession().getCriteriaBuilder();
     }
 }

@@ -5,13 +5,11 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-/**
- * Created by Viktor on 23.11.2017.
- */
+
 public interface IUserDAO {
-    void saveUser(User user);
-    User findUserById(int user_id);
+    User saveUser(User user);
+    User findUserById(Long user_id);
     List<User> findAllUsers();
     void updateUser(User user);
-    void deleteUser(Integer userId);
+    void deleteUser(Long userId);
 }

@@ -6,13 +6,11 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-/**
- * Created by Viktor on 23.11.2017.
- */
+
 public interface IProductDAO {
     void saveProduct(Product product);
-    Product findProductById(int product_id);
+    Product findProductById(Long product_id);
     List<Product> findAllProducts();
     void updateProduct(Product product);
-    void deleteProduct(Integer productId);
+    void deleteProduct(Long productId);
 }

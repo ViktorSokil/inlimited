@@ -1,30 +1,56 @@
 package com.inlimited.springmvc.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Viktor on 23.11.2017.
- */
+
 @Entity
 @Table(name = "receipts")
 public class Receipt {
-    private int receiptId;
-    private Date receiptDate;
-    private int productId;
-
     @Id
     @Column(name = "RECEIPT_ID", nullable = false)
-    public int getReceiptId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long receiptId;
+    @Column(name = "RECEIPT_DATE", nullable = false)
+    private Date receiptDate;
+    @Column(name = "TOTAL_PRICE", nullable = false)
+    private BigDecimal totalPrice;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "receipts_product", joinColumns = @JoinColumn(name = "RECEIPT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    private List<Product> products = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+
+    public Long getReceiptId() {
         return receiptId;
     }
 
-    public void setReceiptId(int receiptId) {
+    public void setReceiptId(Long receiptId) {
         this.receiptId = receiptId;
     }
 
-    @Basic
-    @Column(name = "RECEIPT_DATE", nullable = false)
     public Date getReceiptDate() {
         return receiptDate;
     }
@@ -33,14 +59,12 @@ public class Receipt {
         this.receiptDate = receiptDate;
     }
 
-    @Basic
-    @Column(name = "PRODUCT_ID", nullable = false)
-    public int getProductId() {
-        return productId;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setTotalPrice(BigDecimal productId) {
+        this.totalPrice = productId;
     }
 
     @Override
@@ -48,21 +72,22 @@ public class Receipt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Receipt receipts = (Receipt) o;
+        Receipt receipt = (Receipt) o;
 
-        if (receiptId != receipts.receiptId) return false;
-        if (productId != receipts.productId) return false;
-        if (receiptDate != null ? !receiptDate.equals(receipts.receiptDate) : receipts.receiptDate != null)
-            return false;
-
-        return true;
+        if (!receiptId.equals(receipt.receiptId)) return false;
+        if (!receiptDate.equals(receipt.receiptDate)) return false;
+        if (!totalPrice.equals(receipt.totalPrice)) return false;
+        if (!products.equals(receipt.products)) return false;
+        return user.equals(receipt.user);
     }
 
     @Override
     public int hashCode() {
-        int result = receiptId;
-        result = 31 * result + (receiptDate != null ? receiptDate.hashCode() : 0);
-        result = 31 * result + productId;
+        int result = receiptId.hashCode();
+        result = 31 * result + receiptDate.hashCode();
+        result = 31 * result + totalPrice.hashCode();
+        result = 31 * result + products.hashCode();
+        result = 31 * result + user.hashCode();
         return result;
     }
 }

@@ -8,8 +8,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
@@ -24,11 +26,11 @@ public class ProductDAOImpl implements IProductDAO {
 
     @Override
     public void saveProduct(Product product) {
-        currentSession().saveOrUpdate(product);
+        currentSession().save(product);
     }
 
     @Override
-    public Product findProductById(int product_id) {
+    public Product findProductById(Long product_id) {
         return currentSession().find(Product.class, product_id);
     }
 
@@ -49,12 +51,16 @@ public class ProductDAOImpl implements IProductDAO {
 
     @Override
     public void updateProduct(Product product) {
-
+        currentSession().update(product);
     }
 
     @Override
-    public void deleteProduct(Integer productId) {
+    public void deleteProduct(Long productId) {
+        /*Query query = currentSession().createQuery("delete from Product where productId = "productId");
+        query.executeUpdate();*/
 
+        Product product = (Product) currentSession().load(Product.class, productId);
+        currentSession().delete(product);
     }
 
     private Session currentSession() {

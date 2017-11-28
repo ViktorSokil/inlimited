@@ -1,33 +1,49 @@
+DROP TABLE IF EXISTS users;
+
+DROP TABLE IF EXISTS products;
+
+DROP TABLE IF EXISTS receipts;
+
+DROP TABLE IF EXISTS receipts_product;
+
+
 CREATE TABLE  users
 (user_id INT NOT NULL AUTO_INCREMENT,
  user_name VARCHAR(20) NOT NULL,
- user_email VARCHAR(20) NOT NULL UNIQUE,
-  PRIMARY KEY (user_id),
+ user_email VARCHAR(20) NOT NULL ,
+ PRIMARY KEY (user_id)
 );
 
 CREATE TABLE  products
 (product_id INT NOT NULL AUTO_INCREMENT,
- product_name VARCHAR(20) NOT NULL UNIQUE,
+ product_name VARCHAR(20) NOT NULL,
  product_price DECIMAL NOT NULL,
-  PRIMARY KEY (product_id),
+ PRIMARY KEY (product_id)
 );
 
 CREATE TABLE  receipts
 (receipt_id INT NOT NULL AUTO_INCREMENT,
  receipt_date DATE NOT NULL,
  user_id INT NOT NULL,
- product_id INT NOT NULL,
-  PRIMARY KEY (receipt_id),
-  FOREIGN KEY (user_id) REFERENCES users (user_id),
+ total_price DECIMAL NOT NULL,
+ PRIMARY KEY (receipt_id)
 );
 
-INSERT INTO products (product_name, product_price) VALUES ('sugar', 20);
-INSERT INTO products (product_name, product_price) VALUES ('salt', 5);
-INSERT INTO products (product_name, product_price) VALUES ('potato', 10);
-INSERT INTO products (product_name, product_price) VALUES ('tea', 35);
-INSERT INTO products (product_name, product_price) VALUES ('coffee', 50);
-INSERT INTO products (product_name, product_price) VALUES ('cigarettes', 30);
-INSERT INTO products (product_name, product_price) VALUES ('bear', 20);
-INSERT INTO products (product_name, product_price) VALUES ('bread', 10);
+CREATE TABLE receipts_product
+(receipt_id INT NOT NULL ,
+ product_id INT NOT NULL,
+PRIMARY KEY (receipt_id, product_id),
+FOREIGN KEY (receipt_id) REFERENCES receipts (receipt_id) ,
+FOREIGN KEY (product_id) REFERENCES products (product_id));
+
+/*products*/
+INSERT INTO products (product_name, product_price) VALUES ('Bora', 200);
+INSERT INTO products (product_name, product_price) VALUES ('Sofia', 250);
+INSERT INTO products (product_name, product_price) VALUES ('Julia', 300);
+INSERT INTO products (product_name, product_price) VALUES ('Laura', 350);
+INSERT INTO products (product_name, product_price) VALUES ('Coffee', 330);
+INSERT INTO products (product_name, product_price) VALUES ('Solid', 500);
+INSERT INTO products (product_name, product_price) VALUES ('Marta', 230);
+INSERT INTO products (product_name, product_price) VALUES ('Soft', 340);
 
 COMMIT ;

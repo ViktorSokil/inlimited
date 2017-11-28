@@ -5,13 +5,11 @@ import com.inlimited.springmvc.repository.api.IProductDAO;
 
 import java.util.List;
 
-/**
- * Created by Viktor on 23.11.2017.
- */
+
 public interface IProductService {
     List<Product> findAll();
-    Product findById(Integer id);
+    Product findById(Long id);
     void saveProduct(Product product);
     void updateProduct(Product product);
-    void deleteProduct(Integer productId);
+    void deleteProduct(Long productId);
 }
