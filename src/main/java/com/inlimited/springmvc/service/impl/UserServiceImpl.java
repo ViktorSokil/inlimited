@@ -4,7 +4,6 @@ import com.inlimited.springmvc.entity.User;
 import com.inlimited.springmvc.repository.api.IUserDAO;
 import com.inlimited.springmvc.service.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    IUserDAO userDAO;
+    private IUserDAO userDAO;
 
 
 

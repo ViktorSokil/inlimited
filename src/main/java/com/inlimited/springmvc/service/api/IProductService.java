@@ -1,7 +1,6 @@
 package com.inlimited.springmvc.service.api;
 
 import com.inlimited.springmvc.entity.Product;
-import com.inlimited.springmvc.repository.api.IProductDAO;
 
 import java.util.List;
 

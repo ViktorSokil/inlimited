@@ -68,6 +68,10 @@ $(document).ready(function() {
         $("#order-btn").off();
         $('.response-message').empty();
     });
+
+    $("#clear-btn").click(function(){
+        handleSuccess();
+    });
 });
 
 function getIdsFromBasket(){

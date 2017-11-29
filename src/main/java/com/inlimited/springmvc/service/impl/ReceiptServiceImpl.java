@@ -11,15 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("receiptService")
 public class ReceiptServiceImpl implements IReceiptService {
 
     @Autowired
-    IReceiptDAO receiptDAO;
+    private IReceiptDAO receiptDAO;
 
     @Autowired
     private IUserService userService;
@@ -30,7 +28,7 @@ public class ReceiptServiceImpl implements IReceiptService {
     }
 
     @Override
-    public Receipt findById(Integer id) {
+    public Receipt findById(Long id) {
         return receiptDAO.findReceiptById(id);
     }
 
@@ -63,7 +61,7 @@ public class ReceiptServiceImpl implements IReceiptService {
             totalPrice = totalPrice.add(product.getProductPrice());
         }
         return totalPrice;
-    }
+}
 
     private Date getDate(){
         java.util.Date date = new java.util.Date();

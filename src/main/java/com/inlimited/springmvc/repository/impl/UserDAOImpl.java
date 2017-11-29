@@ -20,7 +20,7 @@ import java.util.List;
 public class UserDAOImpl implements IUserDAO{
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public UserDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

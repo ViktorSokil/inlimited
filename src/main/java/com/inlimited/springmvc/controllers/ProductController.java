@@ -8,15 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by Viktor on 23.11.2017.
- */
 @RestController
 @EnableTransactionManagement
 public class ProductController {
 
     @Autowired
-    IProductService productService;
+    private IProductService productService;
 
     @RequestMapping(value = "/products")
     public List<Product> printProducts(){

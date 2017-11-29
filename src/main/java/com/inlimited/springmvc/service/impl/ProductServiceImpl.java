@@ -12,7 +12,7 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
 
     @Autowired
-    IProductDAO productDAO;
+    private IProductDAO productDAO;
 
     public ProductServiceImpl(IProductDAO productDAO) {
         this.productDAO = productDAO;

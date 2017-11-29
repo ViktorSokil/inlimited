@@ -1,17 +1,13 @@
 package com.inlimited.springmvc.repository.impl;
 
 import com.inlimited.springmvc.entity.Product;
-import com.inlimited.springmvc.entity.User;
 import com.inlimited.springmvc.repository.api.IProductDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
@@ -22,7 +18,7 @@ import java.util.List;
 public class ProductDAOImpl implements IProductDAO {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public void saveProduct(Product product) {

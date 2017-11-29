@@ -1,14 +1,11 @@
 package com.inlimited.springmvc.repository.impl;
 
-import com.inlimited.springmvc.entity.Product;
 import com.inlimited.springmvc.entity.Receipt;
-import com.inlimited.springmvc.entity.User;
 import com.inlimited.springmvc.repository.api.IReceiptDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -22,7 +19,7 @@ import java.util.List;
 public class ReceiptDAOImpl implements IReceiptDAO {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public Receipt saveReceipt(Receipt receipt) {
@@ -30,7 +27,7 @@ public class ReceiptDAOImpl implements IReceiptDAO {
     }
 
     @Override
-    public Receipt findReceiptById(int receipt_id) {
+    public Receipt findReceiptById(Long receipt_id) {
         return currentSession().find(Receipt.class, receipt_id);
     }
 
