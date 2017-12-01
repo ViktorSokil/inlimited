@@ -16,8 +16,19 @@ public class User {
     private String userName;
     @Column(name = "USER_EMAIL", nullable = false, length = 20)
     private String userEmail;
+    @Column(name = "ROLE", length = 10)
+    private String role;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Receipt> receipts = new ArrayList<>();
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 
     public List<Receipt> getReceipts() {
         return receipts;

@@ -36,6 +36,7 @@ public class ReceiptServiceImpl implements IReceiptService {
     public Receipt saveReceipt(Receipt receipt) {
         User user = receipt.getUser();
         if(user != null){
+            user.setRole("USER");
             user = userService.saveUser(user);
         }
         receipt.setUser(user);

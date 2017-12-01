@@ -11,6 +11,7 @@ CREATE TABLE  users
 (user_id INT NOT NULL AUTO_INCREMENT,
  user_name VARCHAR(20) NOT NULL,
  user_email VARCHAR(20) NOT NULL ,
+ role VARCHAR (10),
  PRIMARY KEY (user_id)
 );
 
