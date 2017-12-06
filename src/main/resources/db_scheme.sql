@@ -12,6 +12,7 @@ CREATE TABLE  users
  user_name VARCHAR(20) NOT NULL,
  user_email VARCHAR(20) NOT NULL ,
  role VARCHAR (10),
+ password VARCHAR (15),
  PRIMARY KEY (user_id)
 );
 
@@ -46,5 +47,8 @@ INSERT INTO products (product_name, product_price) VALUES ('Coffee', 330);
 INSERT INTO products (product_name, product_price) VALUES ('Solid', 500);
 INSERT INTO products (product_name, product_price) VALUES ('Marta', 230);
 INSERT INTO products (product_name, product_price) VALUES ('Soft', 340);
+
+INSERT INTO users (user_name, user_email, role, password) VALUES ('Admin 1', 'admin1@gmail.com', 'ADMIN', 'pass1');
+INSERT INTO users (user_name, user_email, role, password) VALUES ('Admin 2', 'admin2@gmail.com', 'ADMIN', 'pass2');
 
 COMMIT ;

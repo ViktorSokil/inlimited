@@ -12,4 +12,10 @@ public class AdminController {
         System.out.println("In admin");
         return "signin";
     }
+
+    @RequestMapping(value = "/admin/dashboard")
+    public String getDashboard(){
+        System.out.println("In admin");
+        return "dashboard";
+    }
 }

@@ -18,6 +18,9 @@ public class User {
     private String userEmail;
     @Column(name = "ROLE", length = 10)
     private String role;
+    @Column(name = "PASSWORD", length = 15)
+    private String password;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Receipt> receipts = new ArrayList<>();
 
@@ -63,6 +66,14 @@ public class User {
         this.userEmail = userEmail;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,7 +84,9 @@ public class User {
         if (!userId.equals(user.userId)) return false;
         if (!userName.equals(user.userName)) return false;
         if (!userEmail.equals(user.userEmail)) return false;
-        return receipts != null ? receipts.equals(user.receipts) : user.receipts == null;
+        if (!role.equals(user.role)) return false;
+        if (!password.equals(user.password)) return false;
+        return receipts.equals(user.receipts);
     }
 
     @Override
@@ -81,7 +94,9 @@ public class User {
         int result = userId.hashCode();
         result = 31 * result + userName.hashCode();
         result = 31 * result + userEmail.hashCode();
-        result = 31 * result + (receipts != null ? receipts.hashCode() : 0);
+        result = 31 * result + role.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + receipts.hashCode();
         return result;
     }
 }
